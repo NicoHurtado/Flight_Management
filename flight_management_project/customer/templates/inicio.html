@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+    <style>
+        input[type="text"], input[type="email"], select {
+            border-radius: 5px;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="submit"] {
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: #894caf;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Inicio</h1>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/login/">
+        {% csrf_token %}
+        
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br>
+        
+        <label for="nombre">Id:</label><br>
+        <input type="text" id="identificacion" name="identificacion" required><br>
+        
+    
+        </select><br><br>
+        
+        <input type="submit" value="Login"><br>
+    </form>
+    
+    <br>
+    
+    
+    <form action="{% url 'signup' %}">
+        <input type="submit" value="Sign Up">
+    </form>
+
+    <br>
+    <br>
+
+    <form action="{% url 'registrar_vuelo' %}">
+        <input type="submit" value="Login As Admin">
+    </form>
+    
+</body>
+</html>

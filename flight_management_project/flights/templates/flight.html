@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flight</title>
+    <style>
+        input[type="text"], input[type="date"], select {
+            border-radius: 5px;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="submit"] {
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: #af4ca5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registrar Vuelo</h1>
+    <form method="POST" action="/registrar_vuelo/">
+        {% csrf_token %}
+        
+        <label for="id_vuelo">Id Vuelo:</label><br>
+        <input type="text" id="id_vuelo" name="id_vuelo" required><br>
+        
+        <label for="aerolinea">Aerolínea:</label><br>
+        <select id="aerolinea" name="codigo_aerolinea">
+            {% for aerolinea in aerolineas %}
+                <option value="{{ aerolinea.codigo_aerolinea }}">{{ aerolinea.codigo_aerolinea }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="codigo_salida">Código IATA Aeropuerto Salida:</label><br>
+        <select id="codigo_salida" name="codigo_iata_salida">
+            {% for aeropuerto in aeropuertos %}
+                <option value="{{ aeropuerto.codigo_aeropuerto }}">{{ aeropuerto.codigo_aeropuerto }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="codigo_llegada">Código IATA Aeropuerto Llegada:</label><br>
+        <select id="codigo_llegada" name="codigo_iata_llegada">
+            {% for aeropuerto in aeropuertos %}
+                <option value="{{ aeropuerto.codigo_aeropuerto }}">{{ aeropuerto.codigo_aeropuerto }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <label for="fecha_salida">Fecha Salida:</label><br>
+        <input type="datetime-local" id="fecha_salida" name="fecha_salida" required><br>
+
+        <br>
+        
+        <label for="fecha_llegada">Fecha Llegada:</label><br>
+        <input type="datetime-local" id="fecha_llegada" name="fecha_llegada" required><br>
+
+        <br>
+        
+        <label for="categoria_vuelo">Categoría de Vuelo:</label><br>
+        <select id="categoria_vuelo" name="categoria_vuelo">
+            <option value="Nacional">Nacional Flight</option>
+            <option value="Internacional">Internacional Flight</option>
+            <option value="Regional">Regional Flight</option>
+        </select><br>
+        
+        <br>
+        
+        <input type="submit" value="Registrar Vuelo">
+    </form>
+
+
+    
+    <h2>REGISTRAR AEROPUERTO:</h2>
+    <form method="POST" action="/registrar_aeropuerto/">
+        {% csrf_token %} 
+        
+        <label for="codigo_aeropuerto">Código IATA:</label><br>
+        <input type="text" id="codigo_aeropuerto" name="codigo_aeropuerto" required><br>
+        
+        <label for="nombre_aeropuerto">Nombre:</label><br>
+        <input type="text" id="nombre_aeropuerto" name="nombre_aeropuerto" required><br>
+
+        <label for="nombre_pais">Nombre Del pais:</label><br>
+        <input type="text" id="nombre_pais" name="nombre_pais" required><br>
+        
+        <label for="id_pais">Id País:</label><br>
+        <input type="text" id="id_pais" name="id_pais" required><br>
+
+        <label for="nombre_ciudad">Nombre De la Ciudad:</label><br>
+        <input type="text" id="nombre_ciudad" name="nombre_ciudad" required><br>
+        
+        <label for="id_ciudad">Id Ciudad:</label><br>
+        <input type="text" id="id_ciudad" name="id_ciudad" required><br>
+        
+        <br>
+        
+        <input type="submit" value="Registrar Aeropuerto">
+    </form>
+    
+    <h2>AEROLINEA:</h2>
+    <form method="POST" action="/registrar_aerolinea/">
+        {% csrf_token %} 
+        
+        <label for="codigo_aerolinea">Código IATA:</label><br>
+        <input type="text" id="codigo_aerolinea" name="codigo_aerolinea" required><br>
+        
+        <label for="nombre_aerolinea">Nombre:</label><br>
+        <input type="text" id="nombre_aerolinea" name="nombre_aerolinea" required><br>
+        
+        <br>
+        
+        <input type="submit" value="Registrar Aerolínea">
+    </form>
+
+    <br>
+
+    <form method="POST" action="/ver_tickets/">
+        {% csrf_token %}
+        
+        <label for="id_vuelo">ID Vuelo:</label><br>
+        <input type="text" id="id_vuelo_t" name="id_vuelo_t" required><br>
+        
+        <input type="submit" value="Ver Tickets Comprados en este Vuelo">
+    </form>
+
+    <br>
+
+    {% if tickets %}
+    <h2>Lista de Tickets:</h2>
+    <ul>
+        {% for ticket in tickets %}
+            <li>
+                <strong>Ticket #{{ forloop.counter }}:</strong><br>
+                <strong>ID Cliente:</strong> {{ ticket.id_cliente }} <br>
+                <strong>ID Vuelo:</strong> {{ ticket.id_vuelo }} <br>
+                <strong>Grupo:</strong> {{ ticket.grupo }} <br>
+                <strong>Asiento:</strong> {{ ticket.asiento }} <br>
+                <strong>Categoria Pasajero:</strong> {{ ticket.categoria_pasajero }} <br>
+                <strong>Equipaje de Mano:</strong> {{ ticket.equipaje_mano }} <br>
+                <strong>Equipaje de Bodega:</strong> {{ ticket.equipaje_bodega }} <br>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</body>
+</html>

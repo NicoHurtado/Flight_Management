@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+    <style>
+        input[type="text"], input[type="email"] {
+            border-radius: 5px;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="submit"] {
+            border-radius: 5px;
+            padding: 10px 20px;
+            background-color: #a54caf;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form method="POST" action="/registrar/">  
+        {% csrf_token %}  
+        
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br>
+        
+        <label for="id">ID:</label><br>
+        <input type="text" id="id" name="id" required><br>
+        
+        <label for="edad">Edad:</label><br>
+        <input type="text" id="edad" name="edad" required><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        
+        <br>
+        
+        <input type="submit" value="Registrar">
+    </form>
+</body>
+</html>
